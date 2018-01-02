@@ -1,3 +1,4 @@
+// MODULE: api
 // FILE: api.kt
 
 package api
@@ -16,6 +17,7 @@ fun compilation() {}
 @RuntimeExperimentalAPI
 fun runtime() {}
 
+// MODULE: usage(api)
 // FILE: usage.kt
 
 @file:UseExperimental(CompilationExperimentalAPI::class)
