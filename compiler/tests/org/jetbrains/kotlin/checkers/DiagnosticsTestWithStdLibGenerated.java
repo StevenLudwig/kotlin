@@ -1809,6 +1809,12 @@ public class DiagnosticsTestWithStdLibGenerated extends AbstractDiagnosticsTestW
             doTest(fileName);
         }
 
+        @TestMetadata("errors.kt")
+        public void testErrors() throws Exception {
+            String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/diagnostics/testsWithStdLib/experimental/errors.kt");
+            doTest(fileName);
+        }
+
         @TestMetadata("incorrectTargetsForExperimentalAnnotation.kt")
         public void testIncorrectTargetsForExperimentalAnnotation() throws Exception {
             String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/diagnostics/testsWithStdLib/experimental/incorrectTargetsForExperimentalAnnotation.kt");
@@ -1818,6 +1824,12 @@ public class DiagnosticsTestWithStdLibGenerated extends AbstractDiagnosticsTestW
         @TestMetadata("incorrectUseExperimental.kt")
         public void testIncorrectUseExperimental() throws Exception {
             String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/diagnostics/testsWithStdLib/experimental/incorrectUseExperimental.kt");
+            doTest(fileName);
+        }
+
+        @TestMetadata("override.kt")
+        public void testOverride() throws Exception {
+            String fileName = KotlinTestUtils.navigationMetadata("compiler/testData/diagnostics/testsWithStdLib/experimental/override.kt");
             doTest(fileName);
         }
 
