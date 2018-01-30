@@ -25,6 +25,7 @@ import com.intellij.openapi.projectRoots.impl.JavaSdkImpl;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.newvfs.impl.VfsRootAccess;
+import kotlin.jvm.functions.Function0;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.TestOnly;
 import org.jetbrains.kotlin.test.KotlinTestUtils;
@@ -82,6 +83,13 @@ public class PluginTestCaseBase {
         String javaHome = System.getProperty("java.home");
         assert new File(javaHome).isDirectory();
         return getSdk(javaHome, "Full JDK");
+    }
+
+    @NotNull
+    public static Sdk jdk(@NotNull Disposable disposable, @NotNull Function0<Sdk> getJdk) {
+        Sdk jdk = getJdk.invoke();
+        ApplicationManager.getApplication().runWriteAction(() -> ProjectJdkTable.getInstance().addJdk(jdk, disposable));
+        return jdk;
     }
 
     @NotNull

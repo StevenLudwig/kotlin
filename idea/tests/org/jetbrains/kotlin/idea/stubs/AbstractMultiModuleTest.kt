@@ -7,10 +7,12 @@ package org.jetbrains.kotlin.idea.stubs
 
 import com.intellij.codeInsight.daemon.DaemonAnalyzerTestCase
 import com.intellij.openapi.application.WriteAction
+import com.intellij.openapi.application.runWriteAction
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.externalSystem.service.project.IdeModifiableModelsProviderImpl
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.module.StdModuleTypes
+import com.intellij.openapi.projectRoots.ProjectJdkTable
 import com.intellij.openapi.roots.DependencyScope
 import com.intellij.openapi.roots.ModuleRootModificationUtil
 import com.intellij.openapi.roots.OrderRootType
@@ -51,7 +53,9 @@ abstract class AbstractMultiModuleTest : DaemonAnalyzerTestCase() {
             setTestRoot(moduleWithSrcRootSet, name)
         }
 
-        ConfigLibraryUtil.configureSdk(moduleWithSrcRootSet, PluginTestCaseBase.jdk(jdk))
+        val sdk = PluginTestCaseBase.jdk(jdk)
+        runWriteAction { ProjectJdkTable.getInstance().addJdk(sdk, testRootDisposable) }
+        ConfigLibraryUtil.configureSdk(moduleWithSrcRootSet, sdk)
 
         return moduleWithSrcRootSet
     }
